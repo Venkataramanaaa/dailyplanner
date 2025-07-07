@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>📅 Daily Planner</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #eae7e7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #a5e5ee;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        input[type="text"], input[type="time"] {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f0f0f0;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .task-item span {
+            font-size: 16px;
+        }
+        .delete-link {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .delete-link:hover {
+            text-decoration: underline;
+        }
+        .no-tasks {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 Daily Planner</h1>
+        <form action="/add" method="post">
+            <input type="text" name="task" placeholder="Enter your task" required>
+            <input type="time" name="time" required>
+            <button type="submit">Add Task</button>
+        </form>
+        <h2>Today's Tasks:</h2>
+        <ul class="task-list">
+            {% for task in tasks %}
+                <li class="task-item">
+                    <span>{{ task.time }} – {{ task.task }}</span>
+                    <a class="delete-link" href="/delete/{{ loop.index0 }}">🗑</a>
+                </li>
+            {% else %}
+                <p class="no-tasks">No tasks added yet.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
